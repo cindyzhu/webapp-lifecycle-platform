@@ -1,0 +1,20 @@
+{
+  "name": "webapp-lifecycle-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Web 应用生命周期管理平台 — 微前端架构",
+  "scripts": {
+    "dev": "pnpm --filter main-app dev",
+    "dev:supplier": "pnpm --filter sub-supplier dev",
+    "dev:goods": "pnpm --filter sub-goods dev",
+    "dev:all": "pnpm -r --parallel dev",
+    "build": "pnpm -r build",
+    "build:main": "pnpm --filter main-app build",
+    "build:supplier": "pnpm --filter sub-supplier build",
+    "build:goods": "pnpm --filter sub-goods build"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
+  }
+}

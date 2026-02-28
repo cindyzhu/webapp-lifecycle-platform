@@ -1,0 +1,65 @@
+name: Deploy (Manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      app:
+        description: 'App to deploy'
+        required: true
+        type: choice
+        options:
+          - main-app
+          - sub-supplier
+          - sub-goods
+      environment:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - preview
+          - production
+      branch:
+        description: 'Branch to deploy'
+        required: true
+        default: 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build ${{ inputs.app }}
+        run: pnpm --filter ${{ inputs.app }} build
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+        run: |
+          APP_DIR="apps/${{ inputs.app }}"
+          PROD_FLAG=""
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            PROD_FLAG="--prod"
+          fi
+          echo "Deploying ${{ inputs.app }} from branch ${{ inputs.branch }} to ${{ inputs.environment }}"
+          vercel deploy $APP_DIR/dist --prebuilt $PROD_FLAG \
+            --token=$VERCEL_TOKEN \
+            --yes

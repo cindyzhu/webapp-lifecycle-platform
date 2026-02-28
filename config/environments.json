@@ -1,0 +1,28 @@
+{
+  "environments": [
+    {
+      "name": "test",
+      "displayName": "Test",
+      "domain": "",
+      "cluster": "shared"
+    },
+    {
+      "name": "staging",
+      "displayName": "Staging",
+      "domain": "",
+      "cluster": "shared"
+    },
+    {
+      "name": "production",
+      "displayName": "Production",
+      "domain": "",
+      "cluster": "dedicated"
+    },
+    {
+      "name": "international",
+      "displayName": "International",
+      "domain": "",
+      "cluster": "dedicated"
+    }
+  ]
+}

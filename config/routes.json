@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "app": "main-app",
+      "description": "Homepage"
+    },
+    {
+      "path": "/supplier",
+      "app": "sub-supplier",
+      "description": "Supplier management"
+    },
+    {
+      "path": "/goods",
+      "app": "sub-goods",
+      "description": "Goods management"
+    }
+  ],
+  "matchStrategy": "longest-prefix"
+}

@@ -1,0 +1,28 @@
+{
+  "apps": [
+    {
+      "name": "sub-supplier",
+      "displayName": "商户管理",
+      "activeRule": "/supplier",
+      "entry": "http://localhost:5174",
+      "props": {},
+      "deployed": {
+        "test": "",
+        "staging": "",
+        "production": ""
+      }
+    },
+    {
+      "name": "sub-goods",
+      "displayName": "商品管理",
+      "activeRule": "/goods",
+      "entry": "http://localhost:5175",
+      "props": {},
+      "deployed": {
+        "test": "",
+        "staging": "",
+        "production": ""
+      }
+    }
+  ]
+}
