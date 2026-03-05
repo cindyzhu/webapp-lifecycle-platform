@@ -50,7 +50,10 @@ export function SubAppsProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     fetch('/api/apps')
-      .then((r) => r.json() as Promise<ApiResponse<AppRecord[]>>)
+      .then((r) => {
+        if (!r.ok) throw new Error(`API returned ${r.status}`);
+        return r.json() as Promise<ApiResponse<AppRecord[]>>;
+      })
       .then((json) => {
         if (json.data) {
           const active = json.data
