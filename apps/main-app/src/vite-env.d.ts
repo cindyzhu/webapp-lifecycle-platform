@@ -1,14 +1,5 @@
 /// <reference types="vite/client" />
 
-interface ImportMetaEnv {
-  readonly VITE_SUPPLIER_URL: string;
-  readonly VITE_GOODS_URL: string;
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
-}
-
 declare module 'wujie-react' {
   import { ComponentType } from 'react';
   interface WujieReactProps {
@@ -16,6 +7,7 @@ declare module 'wujie-react' {
     width?: string;
     height?: string;
     url: string;
+    alive?: boolean;
     props?: Record<string, unknown>;
   }
   const WujieReact: ComponentType<WujieReactProps>;

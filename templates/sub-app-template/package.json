@@ -1,31 +1,22 @@
 {
-  "name": "main-app",
+  "name": "sub-app-name",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --port 5173",
-    "dev:api": "tsx api-dev-server.ts",
+    "dev": "vite --port 5176",
     "build": "tsc -b && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.98.0",
-    "@vercel/node": "^5.6.9",
-    "@wlp/shared": "workspace:*",
-    "jszip": "^3.10.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.23.0",
-    "wujie": "^1.0.22",
-    "wujie-react": "^1.0.17"
+    "react-router-dom": "^6.23.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.0",
-    "dotenv": "^17.3.1",
-    "tsx": "^4.21.0",
     "typescript": "^5.4.0",
     "vite": "^5.4.0"
   }

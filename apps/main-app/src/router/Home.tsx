@@ -1,7 +1,8 @@
-import { subApps } from '../micro/apps';
+import { useSubApps } from '../micro/SubAppsContext';
 import styles from './Home.module.css';
 
 export default function Home() {
+  const { subApps } = useSubApps();
   return (
     <div className={styles.home}>
       <h1 className={styles.title}>Web App Lifecycle Platform</h1>

@@ -1,20 +1,8 @@
-import { setupApp, preloadApp } from 'wujie';
 import type { SubAppConfig } from '@wlp/shared';
 
-export function registerSubApps(apps: SubAppConfig[]) {
-  apps.forEach((app) => {
-    setupApp({
-      name: app.name,
-      url: app.entry,
-      attrs: {},
-      exec: true,
-      alive: true,
-    });
-  });
-}
-
-export function preloadSubApps(apps: SubAppConfig[]) {
-  apps.forEach((app) => {
-    preloadApp({ name: app.name, url: app.entry });
-  });
+export function registerSubApps(_apps: SubAppConfig[]) {
+  // No-op: WujieReact's startApp handles the full lifecycle
+  // (create sandbox, fetch HTML, inject into shadow DOM, execute JS).
+  // Calling setupApp or preloadApp here creates a sandbox too early,
+  // before a DOM container exists, causing mount failures.
 }

@@ -7,7 +7,7 @@
     "dev": "pnpm --filter main-app dev",
     "dev:supplier": "pnpm --filter sub-supplier dev",
     "dev:goods": "pnpm --filter sub-goods dev",
-    "dev:all": "pnpm -r --parallel dev",
+    "dev:all": "pnpm -r --parallel dev & pnpm --filter main-app dev:api",
     "build": "pnpm -r build",
     "build:main": "pnpm --filter main-app build",
     "build:supplier": "pnpm --filter sub-supplier build",

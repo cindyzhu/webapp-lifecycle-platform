@@ -1,0 +1,160 @@
+.page {
+  max-width: 1100px;
+  margin: 32px auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.btnPrimary {
+  padding: 8px 16px;
+  background: #4fc3f7;
+  color: #1a1a2e;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btnPrimary:hover {
+  background: #29b6f6;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 2px solid transparent;
+}
+
+.cardActive {
+  border-color: #4fc3f7;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cardName {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.clusterBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  background: #e8eaf6;
+  color: #3949ab;
+}
+
+.cardMeta {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.mono {
+  font-family: monospace;
+  font-size: 13px;
+  color: #888;
+}
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+}
+
+.btnGhost {
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #555;
+}
+
+.btnGhost:hover {
+  background: #f5f5f5;
+}
+
+.btnDanger {
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid #ef5350;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #ef5350;
+}
+
+.btnDanger:hover {
+  background: #ffebee;
+}
+
+.formPanel {
+  position: sticky;
+  top: 24px;
+}
+
+.formTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.empty {
+  text-align: center;
+  padding: 48px;
+  color: #aaa;
+  font-size: 14px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.loading {
+  text-align: center;
+  padding: 48px;
+  color: #aaa;
+}
+
+.error {
+  padding: 16px;
+  background: #fff3f3;
+  border: 1px solid #ffc5c5;
+  border-radius: 6px;
+  color: #c0392b;
+  font-size: 14px;
+}

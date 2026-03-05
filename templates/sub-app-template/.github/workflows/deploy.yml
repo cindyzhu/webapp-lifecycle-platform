@@ -1,0 +1,63 @@
+name: Deploy Sub App
+
+on:
+  push:
+    branches: [develop, staging, main]
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Vercel CLI
+        run: npm i -g vercel
+
+      - name: Determine environment
+        id: env
+        run: |
+          BRANCH="${GITHUB_REF_NAME}"
+          if [ "$BRANCH" = "main" ]; then
+            echo "env=production" >> $GITHUB_OUTPUT
+            echo "vercel_flag=--prod" >> $GITHUB_OUTPUT
+          elif [ "$BRANCH" = "staging" ]; then
+            echo "env=staging" >> $GITHUB_OUTPUT
+            echo "vercel_flag=" >> $GITHUB_OUTPUT
+          else
+            echo "env=test" >> $GITHUB_OUTPUT
+            echo "vercel_flag=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Pull Vercel config
+        run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build
+        run: vercel build ${{ steps.env.outputs.vercel_flag }} --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy
+        id: deploy
+        run: |
+          URL=$(vercel deploy --prebuilt ${{ steps.env.outputs.vercel_flag }} --token=${{ secrets.VERCEL_TOKEN }})
+          echo "url=$URL" >> $GITHUB_OUTPUT
+
+      - name: Notify management platform
+        if: success()
+        run: |
+          curl -X POST "${{ secrets.WLP_API_URL }}/api/webhooks/vercel" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "app_name": "${{ secrets.WLP_APP_NAME }}",
+              "environment": "${{ steps.env.outputs.env }}",
+              "version": "${{ github.sha }}",
+              "url": "${{ steps.deploy.outputs.url }}",
+              "deployed_by": "${{ github.actor }}"
+            }'

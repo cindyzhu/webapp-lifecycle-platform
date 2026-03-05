@@ -1,11 +1,38 @@
-import WujieReact from 'wujie-react';
+import { useRef, useEffect } from 'react';
+import { startApp, destroyApp } from 'wujie';
 import { useLocation } from 'react-router-dom';
-import { getSubAppByRoute } from '../micro/apps';
+import { useSubApps } from '../micro/SubAppsContext';
 
 export default function SubAppContainer() {
   const location = useLocation();
+  const { loading, getSubAppByRoute } = useSubApps();
   const topSegment = '/' + location.pathname.split('/').filter(Boolean)[0];
   const app = getSubAppByRoute(topSegment);
+  const elRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!app || !elRef.current) return;
+    startApp({
+      name: app.name,
+      url: app.entry,
+      el: elRef.current,
+      alive: true,
+      props: { route: location.pathname },
+    }).catch((err) => {
+      console.error(`[wujie] startApp error for ${app.name}:`, err);
+    });
+    return () => {
+      destroyApp(app.name);
+    };
+  }, [app?.name, app?.entry]);
+
+  if (loading) {
+    return (
+      <div style={{ padding: 40, textAlign: 'center', color: '#999' }}>
+        Loading...
+      </div>
+    );
+  }
 
   if (!app) {
     return (
@@ -16,13 +43,5 @@ export default function SubAppContainer() {
     );
   }
 
-  return (
-    <WujieReact
-      name={app.name}
-      width="100%"
-      height="100%"
-      url={app.entry}
-      props={{ route: location.pathname }}
-    />
-  );
+  return <div ref={elRef} style={{ width: '100%', height: '100%' }} />;
 }
